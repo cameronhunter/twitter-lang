@@ -15,7 +15,7 @@ start
           ],
           symbols: [
             ...(state.symbols || []),
-            ...(part.cashtag ? [part.cashtag] : [])
+            ...(part.symbol ? [part.symbol] : [])
           ],
           urls: [
             ...(state.urls || []),
@@ -34,8 +34,8 @@ start
  ******************************************************************************/
 
 Entity
-  = cashtag:Cashtag
-    { return { cashtag }; }
+  = symbol:Cashtag
+    { return { symbol }; }
   / hashtag:Hashtag
     { return { hashtag }; }
   / mention:(List / User)
