@@ -30,3 +30,18 @@ test('\\u0085', t => {
 
   t.same(actual, expected);
 });
+
+test('\\u2001', t => {
+  const actual = parse('hello\u2001world');
+  const expected = {
+    text: 'hello\u2001world',
+    entities: {
+      hashtags: [],
+      symbols: [],
+      urls: [],
+      user_mentions: []
+    }
+  };
+
+  t.same(actual, expected);
+});
