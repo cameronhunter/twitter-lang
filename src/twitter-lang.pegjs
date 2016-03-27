@@ -42,38 +42,20 @@ Entity
 /******************************************************************************/
 
 Cashtag
-  = CashtagPrefix text:CashtagText
+  = "$" text:AlphaNumeric
     { return { text, indices: indices(location()) }; }
-
-CashtagPrefix
-  = "$"
-
-CashtagText
-  = AlphaNumeric
 
 /******************************************************************************/
 
 Hashtag
-  = HashtagPrefix text:HashtagText
+  = ("#" / "＃") text:AlphaNumeric
     { return { text, indices: indices(location()) }; }
-
-HashtagPrefix
-  = "#" / "＃"
-
-HashtagText
-  = AlphaNumeric
 
 /******************************************************************************/
 
 User
-  = UserPrefix screen_name:UserName
+  = ("@" / "＠") screen_name:AlphaNumeric
     { return { screen_name, indices: indices(location()) }; }
-
-UserPrefix
-  = "@" / "＠"
-
-UserName
-  = AlphaNumeric
 
 /******************************************************************************/
 
