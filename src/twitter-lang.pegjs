@@ -78,7 +78,7 @@ User
     { return { screen_name, indices: indices(location()) }; }
 
 UserPrefix
-  = "@"
+  = "@" / "＠"
 
 UserName
   = AlphaNumeric

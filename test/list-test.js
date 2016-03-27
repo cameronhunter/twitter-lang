@@ -15,3 +15,18 @@ test(t => {
 
   t.same(actual, expected);
 });
+
+test(t => {
+  const actual = parse('＠twitter/tweeps');
+  const expected = {
+    text: '＠twitter/tweeps',
+    entities: {
+      hashtags: [],
+      symbols: [],
+      urls: [],
+      user_mentions: [{ screen_name: 'twitter', list_slug: '/tweeps', indices: [0, 15] }]
+    }
+  };
+
+  t.same(actual, expected);
+});
