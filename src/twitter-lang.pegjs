@@ -88,10 +88,10 @@ UserName
  ******************************************************************************/
 
 List
-  = user:User list_slug:ListText
+  = user:User list_slug:ListSlug
     { return { screen_name: user.screen_name, list_slug, indices: indices(location()) }; }
 
-ListText
+ListSlug
   = $("/" AlphaNumeric)
 
 /*******************************************************************************
