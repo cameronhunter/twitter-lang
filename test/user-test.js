@@ -1,7 +1,7 @@
 import test from 'ava';
 import { parse } from '..';
 
-test(t => {
+test('Single user using at-sign', t => {
   const actual = parse('@cameronhunter');
   const expected = {
     text: '@cameronhunter',
@@ -16,7 +16,7 @@ test(t => {
   t.same(actual, expected);
 });
 
-test(t => {
+test('Single user using alternative at-sign', t => {
   const actual = parse('＠twitter');
   const expected = {
     text: '＠twitter',
@@ -25,6 +25,24 @@ test(t => {
       symbols: [],
       urls: [],
       user_mentions: [{ screen_name: 'twitter', indices: [0, 8] }]
+    }
+  };
+
+  t.same(actual, expected);
+});
+
+test('Multiple users', t => {
+  const actual = parse('@cameronhunter ＠twitter');
+  const expected = {
+    text: '@cameronhunter ＠twitter',
+    entities: {
+      hashtags: [],
+      symbols: [],
+      urls: [],
+      user_mentions: [
+        { screen_name: 'cameronhunter', indices: [0, 14] },
+        { screen_name: 'twitter', indices: [15, 23] }
+      ]
     }
   };
 

@@ -1,7 +1,7 @@
 import test from 'ava';
 import { parse } from '..';
 
-test(t => {
+test('Single hashtag using octothorpe', t => {
   const actual = parse('#hashtag');
   const expected = {
     text: '#hashtag',
@@ -16,12 +16,30 @@ test(t => {
   t.same(actual, expected);
 });
 
-test(t => {
+test('Single hashtag using sharp sign', t => {
   const actual = parse('＃sharptag');
   const expected = {
     text: '＃sharptag',
     entities: {
       hashtags: [{ text: 'sharptag', indices: [0, 9] }],
+      symbols: [],
+      urls: [],
+      user_mentions: []
+    }
+  };
+
+  t.same(actual, expected);
+});
+
+test('Multiple hashtags', t => {
+  const actual = parse('#hashtag ＃sharptag');
+  const expected = {
+    text: '#hashtag ＃sharptag',
+    entities: {
+      hashtags: [
+        { text: 'hashtag', indices: [0, 8] },
+        { text: 'sharptag', indices: [9, 18] }
+      ],
       symbols: [],
       urls: [],
       user_mentions: []

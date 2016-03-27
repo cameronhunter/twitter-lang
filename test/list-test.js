@@ -1,7 +1,7 @@
 import test from 'ava';
 import { parse } from '..';
 
-test(t => {
+test('Single list using at-sign', t => {
   const actual = parse('@cameronhunter/list-slug');
   const expected = {
     text: '@cameronhunter/list-slug',
@@ -16,7 +16,7 @@ test(t => {
   t.same(actual, expected);
 });
 
-test(t => {
+test('Single list using alternative at-sign', t => {
   const actual = parse('＠twitter/tweeps');
   const expected = {
     text: '＠twitter/tweeps',
@@ -25,6 +25,24 @@ test(t => {
       symbols: [],
       urls: [],
       user_mentions: [{ screen_name: 'twitter', list_slug: '/tweeps', indices: [0, 15] }]
+    }
+  };
+
+  t.same(actual, expected);
+});
+
+test('Multiple lists', t => {
+  const actual = parse('@cameronhunter/list-slug ＠twitter/tweeps');
+  const expected = {
+    text: '@cameronhunter/list-slug ＠twitter/tweeps',
+    entities: {
+      hashtags: [],
+      symbols: [],
+      urls: [],
+      user_mentions: [
+        { screen_name: 'cameronhunter', list_slug: '/list-slug', indices: [0, 24] },
+        { screen_name: 'twitter', list_slug: '/tweeps', indices: [25, 40] }
+      ]
     }
   };
 
