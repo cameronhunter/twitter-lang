@@ -102,7 +102,10 @@ AlphaNumeric
   = $(([a-z0-9_-]i)+)
 
 Space
-  = $(" ")
+  = " "
+
+Punctuation
+ = "!" / ","
 
 Text
-  = (AlphaNumeric / Space)+
+  = (AlphaNumeric / Punctuation / Space)+
