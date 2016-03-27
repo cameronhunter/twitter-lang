@@ -3,7 +3,7 @@
 }
 
 start
-  = parts:(Entity / Text)*
+  = parts:(Entity / .)*
     {
       return {
         text: text(),
@@ -64,6 +64,3 @@ ListSlug
 
 AlphaNumeric
   = $(([a-z0-9_-]i)+)
-
-Text
-  = .
