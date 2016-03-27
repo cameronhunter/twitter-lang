@@ -1,5 +1,5 @@
 {
-  const indices = ({ start, end }) => [start.offset, end.offset];
+  const indices = ({ start, end }) => ({ indices: [start.offset, end.offset] });
 }
 
 start
@@ -41,19 +41,19 @@ Entity
 
 Cashtag
   = "$" text:AlphaNumeric
-    { return { text, indices: indices(location()) }; }
+    { return { text, ...indices(location()) }; }
 
 Hashtag
   = ("#" / "＃") text:AlphaNumeric
-    { return { text, indices: indices(location()) }; }
+    { return { text, ...indices(location()) }; }
 
 User
   = ("@" / "＠") screen_name:AlphaNumeric
-    { return { screen_name, indices: indices(location()) }; }
+    { return { screen_name, ...indices(location()) }; }
 
 List
   = user:User list_slug:ListSlug
-    { return { screen_name: user.screen_name, list_slug, indices: indices(location()) }; }
+    { return { screen_name: user.screen_name, list_slug, ...indices(location()) }; }
 
 ListSlug
   = $("/" AlphaNumeric)
