@@ -92,7 +92,16 @@ AlphaNumeric
   = $(([a-z0-9_-]i)+)
 
 Space
-  = " "
+  = "\u0020" // White_Space # Zs       SPACE
+  / "\u0085" // White_Space # Cc       <control-0085>
+  / "\u00A0" // White_Space # Zs       NO-BREAK SPACE
+  / "\u1680" // White_Space # Zs       OGHAM SPACE MARK
+  / "\u180E" // White_Space # Zs       MONGOLIAN VOWEL SEPARATOR
+  / "\u2028" // White_Space # Zl       LINE SEPARATOR
+  / "\u2029" // White_Space # Zp       PARAGRAPH SEPARATOR
+  / "\u202F" // White_Space # Zs       NARROW NO-BREAK SPACE
+  / "\u205F" // White_Space # Zs       MEDIUM MATHEMATICAL SPACE
+  / "\u3000" // White_Space # Zs       IDEOGRAPHIC SPACE
 
 Punctuation
  = "!" / ","
