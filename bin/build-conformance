@@ -1,0 +1,59 @@
+#!/usr/bin/env node
+
+import { safeLoad as yaml } from 'js-yaml';
+import fs from 'fs';
+import mkdirp from 'mkdirp';
+import Path from 'path';
+
+const path = (...args) => Path.join(__dirname, ...args);
+
+const files = {
+  [path('..', 'conformance', 'extract.yml')]: {
+    skip: ['replies', 'urls', 'urls_with_indices'],
+    transforms: {
+      mentions: 'output => output.entities.user_mentions.map(mention => mention.screen_name)',
+      mentions_with_indices: 'output => output.entities.user_mentions',
+      mentions_or_lists_with_indices: 'output => output.entities.user_mentions',
+      replies: 'output => output.entities.user_mentions.map(mention => mention.screen_name)',
+      hashtags: 'output => output.entities.hashtags.map(hashtag => hashtag.text)',
+      hashtags_with_indices: 'output => output.entities.hashtags.reduce((state, { text, ...rest }) => [...state, { hashtag: text, ...rest }], [])',
+      cashtags: 'output => output.entities.symbols.map(symbol => symbol.text)',
+      cashtags_with_indices: 'output => output.entities.symbols.reduce((state, { text, ...rest }) => [...state, { cashtag: text, ...rest }], [])'
+    }
+  }
+};
+
+Object.entries(files).forEach(([file, { transforms = {}, skip = [] }]) => {
+  const directory = path('..', 'test', 'conformance', Path.basename(file, '.yml'));
+
+  mkdirp.sync(directory);
+
+  const { tests: suites } = yaml(fs.readFileSync(file, 'utf8'));
+
+  Object.entries(suites).forEach(([suite, tests]) => {
+    const transform = transforms[suite];
+    const shouldSkip = skip.indexOf(suite) >= 0;
+
+    const header = [
+      "import test from 'ava';",
+      "import { parse } from '../../..';",
+      (transform && ''),
+      (transform && `const transform = ${transform};`)
+    ];
+
+    const content = tests.reduce((state, { description, text, expected }) => {
+      return [
+        ...state,
+        '',
+        `test${shouldSkip ? '.skip' : ''}(${JSON.stringify(description)}, t => {`,
+        `  const actual = parse(${JSON.stringify(text)});`,
+        `  const expected = ${JSON.stringify(expected)};`,
+        '',
+        `  t.same(${transform ? 'transform(actual)' : 'actual'}, expected);`,
+        '});'
+      ];
+    }, []);
+
+    fs.writeFileSync(Path.join(directory, `${suite}.js`), [...header, ...content, ''].filter(line => line != null).join('\n'));
+  });
+});

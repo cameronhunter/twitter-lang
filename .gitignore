@@ -1,3 +1,4 @@
+test/conformance/
 build/
 node_modules/
 npm-debug.log
