@@ -23,7 +23,7 @@ start
           ],
           user_mentions: [
             ...(state.user_mentions || []),
-            ...(part.user ? [part.user] : [])
+            ...(part.mention ? [part.mention] : [])
           ]
         }), {})
       };
@@ -36,10 +36,10 @@ start
 Entity
   = cashtag:Cashtag
     { return { cashtag }; }
-  / hashtag: Hashtag
+  / hashtag:Hashtag
     { return { hashtag }; }
-  / user: User
-    { return { user }; }
+  / mention:Mention
+    { return { mention }; }
 
 /*******************************************************************************
  * Cashtag
@@ -70,6 +70,13 @@ HashtagText
   = AlphaNumeric
 
 /*******************************************************************************
+ * Mention
+ ******************************************************************************/
+
+Mention
+  = List / User
+
+/*******************************************************************************
  * User
  ******************************************************************************/
 
@@ -82,6 +89,17 @@ UserPrefix
 
 UserName
   = AlphaNumeric
+
+/*******************************************************************************
+ * List
+ ******************************************************************************/
+
+List
+  = user:User list_slug:ListText
+    { return { screen_name: user.screen_name, list_slug, indices: indices(location()) }; }
+
+ListText
+  = $("/" AlphaNumeric)
 
 /*******************************************************************************
  * Common
