@@ -64,7 +64,7 @@ Hashtag
     { return { text, indices: indices(location()) }; }
 
 HashtagPrefix
-  = "#"
+  = "#" / "＃"
 
 HashtagText
   = AlphaNumeric

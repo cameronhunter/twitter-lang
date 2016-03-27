@@ -15,3 +15,18 @@ test(t => {
 
   t.same(actual, expected);
 });
+
+test(t => {
+  const actual = parse('＃sharptag');
+  const expected = {
+    text: '＃sharptag',
+    entities: {
+      hashtags: [{ text: 'sharptag', indices: [0, 9] }],
+      symbols: [],
+      urls: [],
+      user_mentions: []
+    }
+  };
+
+  t.same(actual, expected);
+});
