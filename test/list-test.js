@@ -48,3 +48,18 @@ test('Multiple lists', t => {
 
   t.same(actual, expected);
 });
+
+test('Non-list text', t => {
+  const actual = parse('This is not a @ user/list');
+  const expected = {
+    text: 'This is not a @ user/list',
+    entities: {
+      hashtags: [],
+      symbols: [],
+      urls: [],
+      user_mentions: []
+    }
+  };
+
+  t.same(actual, expected);
+});

@@ -48,3 +48,18 @@ test('Multiple users', t => {
 
   t.same(actual, expected);
 });
+
+test('Non-user text', t => {
+  const actual = parse('this is not a @ user');
+  const expected = {
+    text: 'this is not a @ user',
+    entities: {
+      hashtags: [],
+      symbols: [],
+      urls: [],
+      user_mentions: []
+    }
+  };
+
+  t.same(actual, expected);
+});

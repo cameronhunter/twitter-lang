@@ -48,3 +48,18 @@ test('Multiple hashtags', t => {
 
   t.same(actual, expected);
 });
+
+test('Non-hashtag text', t => {
+  const actual = parse('This is not a # hashtag');
+  const expected = {
+    text: 'This is not a # hashtag',
+    entities: {
+      hashtags: [],
+      symbols: [],
+      urls: [],
+      user_mentions: []
+    }
+  };
+
+  t.same(actual, expected);
+});

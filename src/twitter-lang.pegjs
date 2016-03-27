@@ -106,7 +106,9 @@ Space
   / [\u2000-\u200A] // White_Space # Zs  [11] EN QUAD..HAIR SPACE
 
 Punctuation
- = "!" / ","
+ = "!" / "," / "#" / "$" / "@" / "/"
 
 Text
-  = (AlphaNumeric / Punctuation / Space)+
+  = AlphaNumeric
+  / Punctuation
+  / Space

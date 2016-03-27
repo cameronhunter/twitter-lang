@@ -33,3 +33,18 @@ test('Multiple cashtags', t => {
 
   t.same(actual, expected);
 });
+
+test('Non-cashtag text', t => {
+  const actual = parse('This is not a $ cashtag');
+  const expected = {
+    text: 'This is not a $ cashtag',
+    entities: {
+      hashtags: [],
+      symbols: [],
+      urls: [],
+      user_mentions: []
+    }
+  };
+
+  t.same(actual, expected);
+});
