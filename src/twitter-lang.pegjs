@@ -39,25 +39,17 @@ Entity
   / mention:(List / User)
     { return { mention }; }
 
-/******************************************************************************/
-
 Cashtag
   = "$" text:AlphaNumeric
     { return { text, indices: indices(location()) }; }
-
-/******************************************************************************/
 
 Hashtag
   = ("#" / "＃") text:AlphaNumeric
     { return { text, indices: indices(location()) }; }
 
-/******************************************************************************/
-
 User
   = ("@" / "＠") screen_name:AlphaNumeric
     { return { screen_name, indices: indices(location()) }; }
-
-/******************************************************************************/
 
 List
   = user:User list_slug:ListSlug
