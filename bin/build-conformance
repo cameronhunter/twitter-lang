@@ -10,14 +10,16 @@ const path = (...args) => Path.join(__dirname, ...args);
 const files = {
   [path('..', 'conformance', 'extract.yml')]: {
     transforms: {
-      mentions: 'output => output.entities.user_mentions.map(mention => mention.screen_name)',
-      mentions_with_indices: 'output => output.entities.user_mentions',
-      mentions_or_lists_with_indices: 'output => output.entities.user_mentions.map(mention => ({ list_slug: "", ...mention }))',
-      replies: 'output => output.entities.user_mentions.filter(({ indices }) => indices[0] == 0).map(mention => mention.screen_name)[0] || null',
+      cashtags: 'output => output.entities.symbols.map(symbol => symbol.text)',
+      cashtags_with_indices: 'output => output.entities.symbols.reduce((state, { text, ...rest }) => [...state, { cashtag: text, ...rest }], [])',
       hashtags: 'output => output.entities.hashtags.map(hashtag => hashtag.text)',
       hashtags_with_indices: 'output => output.entities.hashtags.reduce((state, { text, ...rest }) => [...state, { hashtag: text, ...rest }], [])',
-      cashtags: 'output => output.entities.symbols.map(symbol => symbol.text)',
-      cashtags_with_indices: 'output => output.entities.symbols.reduce((state, { text, ...rest }) => [...state, { cashtag: text, ...rest }], [])'
+      mentions: 'output => output.entities.user_mentions.map(mention => mention.screen_name)',
+      mentions_or_lists_with_indices: 'output => output.entities.user_mentions.map(mention => ({ list_slug: "", ...mention }))',
+      mentions_with_indices: 'output => output.entities.user_mentions',
+      replies: 'output => output.entities.user_mentions.filter(({ indices }) => indices[0] == 0).map(mention => mention.screen_name)[0] || null',
+      urls: 'output => output.entities.urls.map(url => url.url)',
+      urls_with_indices: 'output => output.entities.urls'
     }
   }
 };
