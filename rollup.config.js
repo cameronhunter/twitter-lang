@@ -8,6 +8,7 @@ const nonNull = (array) => array.filter(item => !!item);
 export default {
   entry: 'src/twitter-lang.pegjs',
   dest: `build/twitter-lang${isProduction ? '.min' : ''}.js`,
+  sourceMap: !isProduction,
   format: 'cjs',
   plugins: nonNull([
     pegjs(),
