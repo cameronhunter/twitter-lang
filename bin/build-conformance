@@ -9,12 +9,12 @@ const path = (...args) => Path.join(__dirname, ...args);
 
 const files = {
   [path('..', 'conformance', 'extract.yml')]: {
-    skip: ['replies', 'urls', 'urls_with_indices'],
+    skip: ['urls', 'urls_with_indices'],
     transforms: {
       mentions: 'output => output.entities.user_mentions.map(mention => mention.screen_name)',
       mentions_with_indices: 'output => output.entities.user_mentions',
       mentions_or_lists_with_indices: 'output => output.entities.user_mentions.map(mention => ({ list_slug: "", ...mention }))',
-      replies: 'output => output.entities.user_mentions.map(mention => mention.screen_name)',
+      replies: 'output => output.entities.user_mentions.filter(({ indices }) => indices[0] == 0).map(mention => mention.screen_name)[0] || null',
       hashtags: 'output => output.entities.hashtags.map(hashtag => hashtag.text)',
       hashtags_with_indices: 'output => output.entities.hashtags.reduce((state, { text, ...rest }) => [...state, { hashtag: text, ...rest }], [])',
       cashtags: 'output => output.entities.symbols.map(symbol => symbol.text)',
