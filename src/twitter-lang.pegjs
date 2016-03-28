@@ -1,5 +1,6 @@
 {
   const indices = ({ start, end }) => ({ indices: [start.offset, end.offset] });
+  const flatten = (input) => input ? [input] : [];
 }
 
 start
@@ -11,19 +12,19 @@ start
           ...state,
           hashtags: [
             ...(state.hashtags || []),
-            ...(part.hashtag ? [part.hashtag] : [])
+            ...flatten(part.hashtag)
           ],
           symbols: [
             ...(state.symbols || []),
-            ...(part.symbol ? [part.symbol] : [])
+            ...flatten(part.symbol)
           ],
           urls: [
             ...(state.urls || []),
-            ...(part.url ? [part.url] : [])
+            ...flatten(part.url)
           ],
           user_mentions: [
             ...(state.user_mentions || []),
-            ...(part.mention ? [part.mention] : [])
+            ...flatten(part.mention)
           ]
         }), {})
       };
@@ -40,8 +41,14 @@ Entity
     { return { mention }; }
 
 Cashtag
-  = "$" text:AlphaNumeric
-    { return { text, ...indices(location()) }; }
+  = cashtag:CashTagToken CashTagToken+
+    { return cashtag; }
+  / cashtag:CashTagToken &(Space / Punctuation / End)
+    { return cashtag; }
+
+CashTagToken
+  = "$" symbol:$([a-z]i+) subsymbol:$(("." / "_") [a-z]i+)?
+    { return symbol.length <= 6 && { text: symbol + (subsymbol || ''), ...indices(location()) }; }
 
 Hashtag
   = ("#" / "＃") text:AlphaNumeric
@@ -64,3 +71,25 @@ ListSlug
 
 AlphaNumeric
   = $(([a-z0-9_-]i)+)
+
+Space
+  = "\u0020"        // White_Space # Zs       SPACE
+  / "\u0085"        // White_Space # Cc       <control-0085>
+  / "\u00A0"        // White_Space # Zs       NO-BREAK SPACE
+  / "\u1680"        // White_Space # Zs       OGHAM SPACE MARK
+  / "\u180E"        // White_Space # Zs       MONGOLIAN VOWEL SEPARATOR
+  / "\u2028"        // White_Space # Zl       LINE SEPARATOR
+  / "\u2029"        // White_Space # Zp       PARAGRAPH SEPARATOR
+  / "\u202F"        // White_Space # Zs       NARROW NO-BREAK SPACE
+  / "\u205F"        // White_Space # Zs       MEDIUM MATHEMATICAL SPACE
+  / "\u3000"        // White_Space # Zs       IDEOGRAPHIC SPACE
+  / [\u0009-\u000D] // White_Space # Cc   [5] <control-0009>..<control-000D>
+  / [\u2000-\u200A] // White_Space # Zs  [11] EN QUAD..HAIR SPACE
+
+Punctuation
+  = "!" / "'" / "#" / "%" / "&" / "'" / "(" / ")" / "*" / "+" / "," / "\\" / "-"
+  / "." / "/" / ":" / ";" / "<" / "=" / ">" / "?" / "@" / "[" / "]" / "^" / "_"
+  / "{" / "|" / "}" / "~" / "$"
+
+End
+  = !.
