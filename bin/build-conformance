@@ -9,7 +9,6 @@ const path = (...args) => Path.join(__dirname, ...args);
 
 const files = {
   [path('..', 'conformance', 'extract.yml')]: {
-    skip: ['urls', 'urls_with_indices'],
     transforms: {
       mentions: 'output => output.entities.user_mentions.map(mention => mention.screen_name)',
       mentions_with_indices: 'output => output.entities.user_mentions',
