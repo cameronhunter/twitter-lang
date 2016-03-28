@@ -9,24 +9,16 @@ start
       return {
         text: text(),
         entities: parts.reduce((state, part) => ({
-          ...state,
-          hashtags: [
-            ...(state.hashtags || []),
-            ...flatten(part.hashtag)
-          ],
-          symbols: [
-            ...(state.symbols || []),
-            ...flatten(part.symbol)
-          ],
-          urls: [
-            ...(state.urls || []),
-            ...flatten(part.url)
-          ],
-          user_mentions: [
-            ...(state.user_mentions || []),
-            ...flatten(part.mention)
-          ]
-        }), {})
+          hashtags: [...state.hashtags, ...flatten(part.hashtag)],
+          symbols: [...state.symbols, ...flatten(part.symbol)],
+          urls: [...state.urls, ...flatten(part.url)],
+          user_mentions: [...state.user_mentions, ...flatten(part.mention)]
+        }), {
+          hashtags: [],
+          symbols: [],
+          urls: [],
+          user_mentions: []
+        })
       };
     }
 
