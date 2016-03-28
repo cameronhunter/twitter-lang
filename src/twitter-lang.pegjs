@@ -95,9 +95,6 @@ ListSlug
  * Common
  ******************************************************************************/
 
-AlphaNumeric
-  = $([a-z0-9_-]i+)
-
 Space
   = "\u0020"        // White_Space # Zs       SPACE
   / "\u0085"        // White_Space # Cc       <control-0085>
