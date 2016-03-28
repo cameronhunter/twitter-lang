@@ -13,7 +13,7 @@ const files = {
     transforms: {
       mentions: 'output => output.entities.user_mentions.map(mention => mention.screen_name)',
       mentions_with_indices: 'output => output.entities.user_mentions',
-      mentions_or_lists_with_indices: 'output => output.entities.user_mentions',
+      mentions_or_lists_with_indices: 'output => output.entities.user_mentions.map(mention => ({ list_slug: "", ...mention }))',
       replies: 'output => output.entities.user_mentions.map(mention => mention.screen_name)',
       hashtags: 'output => output.entities.hashtags.map(hashtag => hashtag.text)',
       hashtags_with_indices: 'output => output.entities.hashtags.reduce((state, { text, ...rest }) => [...state, { hashtag: text, ...rest }], [])',
