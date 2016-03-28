@@ -41,12 +41,12 @@ Entity
     { return { mention }; }
 
 Cashtag
-  = cashtag:CashTagToken CashTagToken+
+  = cashtag:CashtagToken CashtagToken+
     { return cashtag; }
-  / cashtag:CashTagToken &(Space / Punctuation / End)
+  / cashtag:CashtagToken &(Space / Punctuation / End)
     { return cashtag; }
 
-CashTagToken
+CashtagToken
   = "$" symbol:$([a-z]i+) subsymbol:$(("." / "_") [a-z]i+)?
     { return symbol.length <= 6 && { text: symbol + (subsymbol || ''), ...indices(location()) }; }
 
