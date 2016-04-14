@@ -13,7 +13,7 @@ test('Single cashtag', t => {
     }
   };
 
-  t.same(actual, expected);
+  t.deepEqual(actual, expected);
 });
 
 test('Multiple cashtags', t => {
@@ -31,7 +31,7 @@ test('Multiple cashtags', t => {
     }
   };
 
-  t.same(actual, expected);
+  t.deepEqual(actual, expected);
 });
 
 test('Non-cashtag text', t => {
@@ -46,5 +46,5 @@ test('Non-cashtag text', t => {
     }
   };
 
-  t.same(actual, expected);
+  t.deepEqual(actual, expected);
 });

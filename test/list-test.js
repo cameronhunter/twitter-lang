@@ -13,7 +13,7 @@ test('Single list using at-sign', t => {
     }
   };
 
-  t.same(actual, expected);
+  t.deepEqual(actual, expected);
 });
 
 test('Single list using alternative at-sign', t => {
@@ -28,7 +28,7 @@ test('Single list using alternative at-sign', t => {
     }
   };
 
-  t.same(actual, expected);
+  t.deepEqual(actual, expected);
 });
 
 test('Multiple lists', t => {
@@ -46,7 +46,7 @@ test('Multiple lists', t => {
     }
   };
 
-  t.same(actual, expected);
+  t.deepEqual(actual, expected);
 });
 
 test('Non-list text', t => {
@@ -61,5 +61,5 @@ test('Non-list text', t => {
     }
   };
 
-  t.same(actual, expected);
+  t.deepEqual(actual, expected);
 });

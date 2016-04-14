@@ -16,7 +16,7 @@ test('\\u0020', t => {
     }
   };
 
-  t.same(actual, expected);
+  t.deepEqual(actual, expected);
 });
 
 test('\\u2001', t => {
@@ -34,5 +34,5 @@ test('\\u2001', t => {
     }
   };
 
-  t.same(actual, expected);
+  t.deepEqual(actual, expected);
 });

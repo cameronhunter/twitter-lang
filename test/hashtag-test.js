@@ -13,7 +13,7 @@ test('Single hashtag using octothorpe', t => {
     }
   };
 
-  t.same(actual, expected);
+  t.deepEqual(actual, expected);
 });
 
 test('Single hashtag using sharp sign', t => {
@@ -28,7 +28,7 @@ test('Single hashtag using sharp sign', t => {
     }
   };
 
-  t.same(actual, expected);
+  t.deepEqual(actual, expected);
 });
 
 test('Multiple hashtags', t => {
@@ -46,7 +46,7 @@ test('Multiple hashtags', t => {
     }
   };
 
-  t.same(actual, expected);
+  t.deepEqual(actual, expected);
 });
 
 test('Non-hashtag text', t => {
@@ -61,5 +61,5 @@ test('Non-hashtag text', t => {
     }
   };
 
-  t.same(actual, expected);
+  t.deepEqual(actual, expected);
 });

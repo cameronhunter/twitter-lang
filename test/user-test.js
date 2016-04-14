@@ -13,7 +13,7 @@ test('Single user using at-sign', t => {
     }
   };
 
-  t.same(actual, expected);
+  t.deepEqual(actual, expected);
 });
 
 test('Single user using alternative at-sign', t => {
@@ -28,7 +28,7 @@ test('Single user using alternative at-sign', t => {
     }
   };
 
-  t.same(actual, expected);
+  t.deepEqual(actual, expected);
 });
 
 test('Multiple users', t => {
@@ -46,7 +46,7 @@ test('Multiple users', t => {
     }
   };
 
-  t.same(actual, expected);
+  t.deepEqual(actual, expected);
 });
 
 test('Non-user text', t => {
@@ -61,5 +61,5 @@ test('Non-user text', t => {
     }
   };
 
-  t.same(actual, expected);
+  t.deepEqual(actual, expected);
 });

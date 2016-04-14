@@ -50,7 +50,7 @@ Object.entries(files).forEach(([file, { transforms = {}, skip = [] }]) => {
         `  const actual = parse(${JSON.stringify(text)});`,
         `  const expected = ${JSON.stringify(expected)};`,
         '',
-        `  t.same(${transform ? 'transform(actual)' : 'actual'}, expected);`,
+        `  t.deepEqual(${transform ? 'transform(actual)' : 'actual'}, expected);`,
         '});'
       ];
     }, []);

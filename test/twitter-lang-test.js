@@ -13,7 +13,7 @@ test(t => {
     }
   };
 
-  t.same(actual, expected);
+  t.deepEqual(actual, expected);
 });
 
 test(t => {
@@ -28,5 +28,5 @@ test(t => {
     }
   };
 
-  t.same(actual, expected);
+  t.deepEqual(actual, expected);
 });

@@ -13,7 +13,7 @@ test('Single URL', t => {
     }
   };
 
-  t.same(actual, expected);
+  t.deepEqual(actual, expected);
 });
 
 test('Multiple URLs', t => {
@@ -31,5 +31,5 @@ test('Multiple URLs', t => {
     }
   };
 
-  t.same(actual, expected);
+  t.deepEqual(actual, expected);
 });

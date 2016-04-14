@@ -7,12 +7,12 @@ test("Extract cashtags", t => {
   const actual = parse("Example: $TEST $symbol test");
   const expected = [{"cashtag":"TEST","indices":[9,14]},{"cashtag":"symbol","indices":[15,22]}];
 
-  t.same(transform(actual), expected);
+  t.deepEqual(transform(actual), expected);
 });
 
 test("Extract cashtags with . or _", t => {
   const actual = parse("Example: $TEST.T test $symbol_ab end");
   const expected = [{"cashtag":"TEST.T","indices":[9,16]},{"cashtag":"symbol_ab","indices":[22,32]}];
 
-  t.same(transform(actual), expected);
+  t.deepEqual(transform(actual), expected);
 });
