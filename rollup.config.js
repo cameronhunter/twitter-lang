@@ -2,16 +2,20 @@ import babel from 'rollup-plugin-babel';
 import pegjs from 'rollup-plugin-pegjs';
 import uglify from 'rollup-plugin-uglify';
 
+const nonNull = (array) => array.filter(x => !!x);
+
+const optimize = process.env.PEGJS_OPTIMIZE || 'speed';
 const isProduction = process.env.NODE_ENV === 'production';
-const nonNull = (array) => array.filter(item => !!item);
+
+const dest = nonNull(['build/twitter-lang', optimize, isProduction && 'min', 'js']).join('.');
 
 export default {
   entry: 'src/twitter-lang.pegjs',
-  dest: `build/twitter-lang${isProduction ? '.min' : ''}.js`,
+  dest,
   sourceMap: !isProduction,
   format: 'cjs',
   plugins: nonNull([
-    pegjs(),
+    pegjs({ optimize }),
     babel({ babelrc: false, presets: ['es2015-rollup', 'stage-1'] }),
     isProduction ? uglify() : null
   ])
