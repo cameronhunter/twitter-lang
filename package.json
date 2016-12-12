@@ -25,7 +25,7 @@
     "mkdirp": "^0.5.1",
     "npm-run-all": "^3.1.1",
     "pegjs": "^0.10.0",
-    "rollup": "^0.36.3",
+    "rollup": "^0.37.0",
     "rollup-plugin-babel": "^2.6.1",
     "rollup-plugin-pegjs": "^2.1.1",
     "rollup-plugin-uglify": "^1.0.1"
