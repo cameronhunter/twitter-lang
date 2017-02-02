@@ -16,7 +16,7 @@
     "test": "ava"
   },
   "devDependencies": {
-    "ava": "^0.16.0",
+    "ava": "^0.18.0",
     "babel-cli": "^6.16.0",
     "babel-preset-es2015": "^6.16.0",
     "babel-preset-es2015-rollup": "^1.2.0",
